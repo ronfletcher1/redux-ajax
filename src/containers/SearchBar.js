@@ -1,6 +1,22 @@
 import React, { Component } from 'react'
+// searchBar needs to know about redux.
+// It doesn't care avout the data/doesn't need state,
+// but needs the dispatcher, because when the user searcher
+// it needs to fire a function that the dispatcher will
+// send to update the weather reducer
+import { connect } from 'react-redux';
+// because we need the dispatcher need bindActionCreators
+import { bindActionCreators } from 'redux';
+import fetchWeather from '../actions/fetchWeather';
 
 class SearchBar extends Component{
+
+  handleWeather = (event)=>{
+    event.preventDefault();
+    const zipCode = document.getElementById('weather-input').value;
+    this.props.fetchWeather(zipCode)
+  }
+
     render(){
         return(
             <nav className="navbar navbar-inverse">
@@ -32,4 +48,12 @@ class SearchBar extends Component{
     }
 }
 
-export default SearchBar;
+function mapDispatchToProps(dispatcher){
+  return bindActionCreators({
+    fetchWeather: fetchWeather
+  }, dispatcher)
+
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar)
+// export default SearchBar;

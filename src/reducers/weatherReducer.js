@@ -18,6 +18,7 @@ function weatherReducer(state = null, action){
         case "GET_WEATHER":
         // do some stuff
         // console.log("Getting weather inside stockReducer")
+            console.log(action)
             return state;
         case "CLEAR_WEATHER":
             return null;
